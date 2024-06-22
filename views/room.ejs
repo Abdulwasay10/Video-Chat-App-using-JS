@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Video Caller</title>
+  <link rel="icon" href="../assets/call-icon-png-png_87589.jpg" type="image/jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script>
+    const ROOM_ID = "<%= roomId %>"
+  </script>
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+  <title><h1>Video Chat App</h1></title>
+  <style>
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      grid-auto-rows: 600px;
+      z-index: 1;
+    }
+    
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 10px;
+      border: 4px solid #333;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <h1>Video Chat App</h1>
+    </ul>
+  </nav>
+  <div id="video-grid"></div>
+  <button id="mute-button">Mute</button>
+  <button id="stop-video-button">Stop Video</button>
+  <div class="box" style="top: 50%; left: 70%;"></div>
+  <div class="box" style="top: 10%; left: 30%;"></div>
+  <div class="box" style="top: 80%; left: 30%;"></div>
+  <div class="box" style="top: 21%; left: 84%;"></div>
+  <div class="box" style="top: 42%; left: 94%;"></div>
+  <div class="box" style="top: 30%; left: 10%;"></div>
+  <script>
+    document.getElementById('mute-button').addEventListener('click', () => {
+      const enabled = myVideo.srcObject.getAudioTracks()[0].enabled
+      myVideo.srcObject.getAudioTracks()[0].enabled = !enabled
+    })
+
+    document.getElementById('stop-video-button').addEventListener('click', () => {
+      const enabled = myVideo.srcObject.getVideoTracks()[0].enabled
+      myVideo.srcObject.getVideoTracks()[0].enabled = !enabled
+    })
+  </script>
+  <style>
+  /* existing styles... */
+  nav {
+    position: fixed;
+    background-color: #333;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+    color: #fff;
+    top: 0;
+    padding: auto;
+    height: 70px;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 1;
+  }
+
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  nav h1{
+    font-size: auto;
+    font-display: block;
+    font-style: italic;
+    align-content: center;
+    text-align: center;
+  }
+
+  nav ul li a {
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    border-style: dotted;
+    background-color: rgb(104, 139, 108);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: #666;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Add this to hide overflowing boxes */
+    position: relative; /* Add this to position boxes */
+  }
+
+  .box{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+  }
+
+  #video-grid {
+    display:flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    border-width: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  #mute-button, #stop-video-button {
+    width: 100px;  /* adjust as needed */
+    height: 50px;  /* adjust as needed */
+    border-radius: 50%;
+    border-color: darkgrey;
+    transition: transform 0.3s ease;
+    margin: 10px;
+    background-color: #d4b6b6;
+    border: 2px solid #666;
+    z-index: 1; 
+  }
+  #mute-button:active, #stop-video-button:active {
+    transform: scale(0.75);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    z-index: 1; 
+  }
+</style>
+</body>
+</html>

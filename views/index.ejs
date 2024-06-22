@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Video Chat</title>
+  <link rel="icon" href="/assets/call-icon-png-png_87589.jpg" type="image/jpg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: rgb(104, 139, 108);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .box {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #fff;
+      margin-bottom: 20px;
+      z-index: 1; 
+    }
+
+    #start-button {
+      z-index: 1;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border-radius: 10px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 1; 
+    }
+
+    #start-button:hover {
+      background-color: #555;
+    }
+
+    #meeting-link {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #fff;
+      z-index: 1; 
+    }
+
+    #meeting-link a {
+      color: #fff;
+      text-decoration: underline;
+      z-index: 1; 
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Video Chat App</h1>
+  <button id="start-button">Start a Video Chat</button>
+  <div id="meeting-link" style="display: none;">
+    Share this link to start the meeting: <a id="meeting-url" href="#"></a>
+  </div>
+  <div class="box" style="top: 10%; left: 20%;"></div>
+  <div class="box" style="top: 50%; left: 60%;"></div>
+  <div class="box" style="top: 80%; left: 30%;"></div>
+  <div class="box" style="top: 21%; left: 74%;"></div>
+  <div class="box" style="top: 42%; left: 94%;"></div>
+  <div class="box" style="top: 60%; left: 10%;"></div>
+
+  <script>
+    document.getElementById('start-button').addEventListener('click', async () => {
+      const response = await fetch('/create-room');
+      const data = await response.json();
+      const roomId = data.roomId;
+      const meetingLink = `${window.location.origin}/${roomId}`;
+      
+      document.getElementById('meeting-url').href = meetingLink;
+      document.getElementById('meeting-url').textContent = meetingLink;
+      document.getElementById('meeting-link').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
